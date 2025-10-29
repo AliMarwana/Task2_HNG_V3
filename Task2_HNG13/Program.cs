@@ -20,7 +20,7 @@ namespace Task2_HNG13
             builder.Services.AddDbContext<AppDbContext>(option =>
            option.UseNpgsql(builder.Configuration.GetConnectionString("contextConnection")));
             var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-            builder.WebHost.UseUrls($"http://*:{port}");
+            //builder.WebHost.UseUrls($"http://*:{port}");
             builder.Services.AddSingleton<Kernel>(serviceProvider =>
             {
                 var apiKey = builder.Configuration["Groq:ApiKey"]
@@ -49,11 +49,11 @@ namespace Task2_HNG13
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
 
             app.UseHttpsRedirection();
 
@@ -62,9 +62,9 @@ namespace Task2_HNG13
 
             app.MapControllers();
 
-            //app.Run();
+            app.Run();
 
-            app.Run($"http://0.0.0.0:{port}");
+            //app.Run($"http://0.0.0.0:{port}");
         }
     }
 }

@@ -175,7 +175,7 @@ namespace Task2_HNG13.Repositories
             var countriesFromDb = new List<Country>();
             foreach (var country in countriesFromAPI)
             {
-                var countryInDb = await _context.Countries.FirstOrDefaultAsync(p => p.Name == country.Name);
+                var countryInDb = await _context.Countries.AsNoTracking().FirstOrDefaultAsync(p => p.Name == country.Name);
                 if(countryInDb == null)
                 {
                     country.Last_refreshed_at = last_update;

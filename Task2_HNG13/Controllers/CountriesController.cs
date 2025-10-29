@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Task2_HNG13.Data;
 using Task2_HNG13.Filters;
 using Task2_HNG13.Models;
 using Task2_HNG13.Repositories;
@@ -15,13 +16,15 @@ namespace Task2_HNG13.Controllers
         private CountryRepository _countryRepository;
         private SqlQueryGenerator _sqlQueryGenerator;
         private IWebHostEnvironment _environment;
+        private AppDbContext _context;
         private readonly string cacheDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
         public CountriesController(CountryRepository countryRepository, SqlQueryGenerator sqlQueryGenerator,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment, AppDbContext context)
         {
             _countryRepository = countryRepository;
             _sqlQueryGenerator = sqlQueryGenerator;
             _environment = environment;
+            _context = context;
         }
 
         [HttpPost("refresh")]
@@ -125,6 +128,8 @@ namespace Task2_HNG13.Controllers
                 }
                 else
                 {
+                    _context.Countries.Remove(country);
+                    await _context.SaveChangesAsync();  
                     return NoContent();
                 }
             }
