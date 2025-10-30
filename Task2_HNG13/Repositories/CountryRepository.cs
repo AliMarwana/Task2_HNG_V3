@@ -196,9 +196,10 @@ namespace Task2_HNG13.Repositories
                    countryInDb.Estimated_gdp = country.Estimated_gdp;
                     countryInDb.Last_refreshed_at = last_update;
                 }
-                await _context.SaveChangesAsync();
+               
             }
-           
+            await _context.SaveChangesAsync();
+
             //return countriesFromAPI;    
         }
         
