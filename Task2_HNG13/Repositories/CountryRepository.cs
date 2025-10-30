@@ -292,7 +292,7 @@ namespace Task2_HNG13.Repositories
                     if (errorsOfValidation.Count() == 0)
                     {
                         await SaveCountriesAfterCheckInDb(countriesFromAPI, last_refresh);
-                        await GenerateImage(countriesFromAPI, last_refresh);
+                        //await GenerateImage(countriesFromAPI, last_refresh);
                         return new ResponseDto
                         {
                             Error = "No"
